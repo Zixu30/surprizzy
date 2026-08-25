@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprizzy — Make Every Moment Special</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="logo" href="#">Surprizzy<span>🎁</span></a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#categories">Categories</a>
+      <a href="#products">Gifts</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleSearch()" aria-label="Search">⌕</button>
+      <a class="whatsapp-mini" href="https://wa.me/584267084400?text=Hello%20Surprizzy%2C%20I%20want%20to%20order." target="_blank" rel="noopener">WhatsApp</a>
+      <a class="instagram-mini" href="https://www.instagram.com/surprizzyy/" target="_blank" rel="noopener">Instagram</a>
+      <button class="admin-mini" onclick="openAdminLogin()">Admin</button>
+      <button class="cart-btn" onclick="openCart()">🛍️ <span id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <div id="searchBar" class="search-bar">
+    <input id="searchInput" type="search" placeholder="Search gifts..." oninput="renderProducts()">
+  </div>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">GIFTS MADE WITH LOVE</p>
+        <h1>Make every<br><em>moment</em> special.</h1>
+        <p class="hero-text">Thoughtful gifts for birthdays, love, celebrations and all the little moments worth remembering.</p>
+        <a href="#products" class="primary-btn">Shop Gifts <span>→</span></a>
+      </div>
+      <div class="hero-art">
+        <div class="blob"></div>
+        <div class="gift-box">
+          <div class="ribbon-v"></div><div class="ribbon-h"></div>
+          <div class="lid"></div><div class="box"></div>
+          <div class="bow">🎀</div>
+        </div>
+        <div class="spark s1">✦</div><div class="spark s2">✧</div><div class="spark s3">✦</div>
+      </div>
+    </section>
+
+    <section id="categories" class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">FIND YOUR PERFECT GIFT</p><h2>Shop by category</h2></div>
+      </div>
+      <div class="categories">
+        <button onclick="filterCategory('All')">🎁<span>All Gifts</span></button>
+        <button onclick="filterCategory('Birthday')">🎂<span>Birthday</span></button>
+        <button onclick="filterCategory('Love')">💗<span>For Love</span></button>
+        <button onclick="filterCategory('Soft Toys')">🧸<span>Soft Toys</span></button>
+        <button onclick="filterCategory('Personalized')">✨<span>Personalized</span></button>
+        <button onclick="filterCategory('Premium')">💎<span>Premium</span></button>
+      </div>
+    </section>
+
+    <section id="products" class="section products-section">
+      <div class="section-head">
+        <div><p class="eyebrow">OUR COLLECTION</p><h2>Popular gifts</h2></div>
+        <button class="text-btn" onclick="filterCategory('All')">View all →</button>
+      </div>
+      <div id="productsGrid" class="products-grid"></div>
+    </section>
+
+    <section class="offer">
+      <div>
+        <p class="eyebrow">SPECIAL OFFER</p>
+        <h2>Give a little happiness.<br>Get <strong>10% OFF</strong>.</h2>
+        <p>Use code <b>SURPRISE10</b> at checkout.</p>
+      </div>
+      <a href="#products" class="light-btn">Shop the offer →</a>
+    </section>
+
+    <section id="about" class="about section">
+      <div><p class="eyebrow">WHY SURPRIZZY?</p><h2>Small gifts.<br><em>Big feelings.</em></h2></div>
+      <div class="features">
+        <div><span>🎀</span><h3>Beautifully packed</h3><p>Every order is prepared to feel like a real surprise.</p></div>
+        <div><span>💝</span><h3>Made for moments</h3><p>Find something special for birthdays, love and celebrations.</p></div>
+        <div><span>🚚</span><h3>Easy ordering</h3><p>Simple checkout and WhatsApp ordering for your convenience.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="logo">Surprizzy<span>🎁</span></div>
+    <p>Make Every Moment Special ✨</p>
+    <small>© 2026 Surprizzy. All rights reserved.</small>
+  <a class="instagram-footer" href="https://www.instagram.com/surprizzyy/" target="_blank" rel="noopener">Follow us on Instagram @surprizzyy</a></footer>
+
+  <div id="cartOverlay" class="overlay" onclick="closeCart(event)">
+    <aside class="cart-panel" onclick="event.stopPropagation()">
+      <div class="cart-head"><h2>Your cart</h2><button onclick="closeCart()">×</button></div>
+      <div id="cartItems"></div>
+      <div class="cart-bottom">
+        <div class="total"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+        <button class="primary-btn full" onclick="checkout()">Checkout →</button>
+        <button class="whatsapp-btn full" onclick="whatsappOrder()">Order on WhatsApp</button>
+      </div>
+    </aside>
+  </div>
+
+
+  <div id="checkoutOverlay" class="overlay" onclick="closeCheckout(event)">
+    <aside class="checkout-panel" onclick="event.stopPropagation()">
+      <div class="cart-head">
+        <div><p class="eyebrow">SECURE CHECKOUT</p><h2>Complete your order</h2></div>
+        <button type="button" onclick="closeCheckout()">×</button>
+      </div>
+
+      <form id="checkoutForm" onsubmit="submitCheckout(event)">
+        <div class="checkout-grid">
+          <div>
+            <label>Full name</label>
+            <input id="customerName" required maxlength="80" placeholder="Your name">
+          </div>
+          <div>
+            <label>Mobile number</label>
+            <input id="customerPhone" required type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile">
+          </div>
+        </div>
+        <label>Delivery address</label>
+        <textarea id="customerAddress" required maxlength="300" placeholder="House / Flat, Street, Area"></textarea>
+        <div class="checkout-grid">
+          <div>
+            <label>City</label>
+            <input id="customerCity" required maxlength="60" placeholder="City">
+          </div>
+          <div>
+            <label>Pincode</label>
+            <input id="customerPincode" required inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6-digit pincode">
+          </div>
+        </div>
+
+        <div class="checkout-total"><span>Order total</span><strong id="checkoutTotal">₹0</strong></div>
+
+        <div class="payment-title">Choose payment method</div>
+        <div class="payment-options">
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="COD" checked onchange="togglePaymentMethod()">
+            <span><b>Cash on Delivery</b><small>Pay when your order arrives</small></span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="UPI" onchange="togglePaymentMethod()">
+            <span><b>Online UPI</b><small>Pay using any UPI app</small></span>
+          </label>
+        </div>
+
+        <div id="upiBox" class="upi-box" style="display:none">
+          <div class="upi-head"><b>Pay using UPI</b><span id="upiIdText">YOUR_UPI_ID@upi</span></div>
+          <button type="button" class="copy-upi" onclick="copyUpi()">Copy UPI ID</button>
+          <a id="upiPayButton" class="primary-btn full upi-pay" href="#" onclick="return startUpiPayment()">Open UPI App →</a>
+          <div class="scanner-wrap">
+            <img id="upiScanner" src="upi-scanner.jpg" alt="UPI QR scanner"
+              onerror="this.style.display='none';document.getElementById('scannerFallback').style.display='block'">
+            <div id="scannerFallback" class="scanner-fallback" style="display:none">
+              <strong>UPI QR Scanner</strong>
+              <span>Add your scanner image as <b>upi-scanner.jpg</b> in the website folder.</span>
+            </div>
+          </div>
+          <p class="payment-note">After paying, tap “Place UPI Order”. Your order will show <b>Order is under process</b> until admin confirms it.</p>
+        </div>
+
+        <button type="button" class="whatsapp-btn full" onclick="whatsappCheckoutOrder()">Order directly on WhatsApp →</button>
+        <button id="placeOrderBtn" class="primary-btn full place-order" type="submit">Place COD Order →</button>
+        <p id="checkoutError" class="checkout-error"></p>
+      </form>
+    </aside>
+  </div>
+
+  <div id="orderStatusOverlay" class="overlay" onclick="closeOrderStatus(event)">
+    <div class="order-status-card" onclick="event.stopPropagation()">
+      <div id="orderStatusIcon" class="status-icon">✓</div>
+      <p class="eyebrow">ORDER UPDATE</p>
+      <h2 id="orderStatusTitle">Order Confirmed</h2>
+      <p id="orderStatusText">Your order has been placed successfully.</p>
+      <div class="order-number">Order ID: <b id="orderStatusId">—</b></div>
+      <button class="primary-btn full" onclick="closeOrderStatus()">Continue shopping</button>
+    </div>
+  </div>
+
+  <div id="adminLoginOverlay" class="overlay" onclick="closeAdminLogin(event)">
+    <div class="admin-modal" onclick="event.stopPropagation()">
+      <button class="modal-x" onclick="closeAdminLogin()">×</button>
+      <p class="eyebrow">SECURE ADMIN ACCESS</p>
+      <h2>Admin login</h2>
+      <p class="modal-note">GitHub-only admin. Your GitHub token is used only on this device to manage products.</p>
+      <input id="adminNumber" class="admin-input" type="tel" inputmode="numeric" maxlength="10" placeholder="Mobile number">
+      <input id="adminPassword" class="admin-input" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
+      <button class="primary-btn full" onclick="adminLogin()">Login securely →</button>
+      <p id="adminError" class="admin-error"></p>
+    </div>
+  </div>
+  <div id="adminOverlay" class="overlay" onclick="closeAdmin(event)">
+    <aside class="admin-panel" onclick="event.stopPropagation()">
+      <div class="cart-head">
+        <div><p class="eyebrow">SURPRIZZY CONTROL</p><h2>Admin panel</h2></div>
+        <button onclick="closeAdmin()">×</button>
+      </div>
+      <div class="admin-tabs">
+        <button class="active" onclick="showAdminTab('products')">Products</button>
+        <button onclick="showAdminTab('orders')">Orders / WhatsApp</button>
+      </div>
+
+      <section id="adminProductsTab" class="admin-tab">
+        <div class="admin-card">
+          <h3>GitHub connection</h3>
+          <div class="admin-form">
+            <input id="ghOwner" placeholder="GitHub username / owner">
+            <input id="ghRepo" placeholder="Repository name (e.g. surprizzy)">
+            <input id="ghBranch" value="main" placeholder="Branch">
+            <input id="ghToken" class="full" type="password" placeholder="GitHub fine-grained token (Contents: Read & Write)">
+            <button class="primary-btn" onclick="testGitHubConnection()">Connect & refresh</button>
+            <button class="text-btn" type="button" onclick="saveGitHubSettings()">Save settings</button>
+            <small id="ghSettingsMsg" class="upload-help full">Token is stored only in this browser's local storage. Never paste it into products.js or public files.</small>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>Add / edit product</h3>
+          <input id="pEditId" type="hidden">
+          <div class="admin-form">
+            <input id="pName" placeholder="Product name">
+            <input id="pPrice" type="number" min="1" placeholder="Price (₹)">
+            <select id="pCat">
+              <option>Birthday</option><option>Love</option><option>Soft Toys</option>
+              <option>Personalized</option><option>Premium</option>
+            </select>
+            <label class="upload-label full">Product image
+              <input id="pImage" type="file" accept="image/jpeg,image/png,image/webp" onchange="previewProductImage(event)">
+            </label>
+            <img id="pImagePreview" class="product-upload-preview full" alt="Product image preview" style="display:none">
+            <input id="pDesc" class="full" placeholder="Short description">
+            <button id="pSaveBtn" class="primary-btn full" onclick="adminAddProduct()">Upload image & add product</button>
+            <button class="text-btn full" type="button" onclick="cancelEditProduct()">Clear / cancel edit</button>
+            <small class="upload-help full">JPG, PNG or WebP • Keep images under 4 MB. Product data is committed to products.json in GitHub.</small>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3>Manage products</h3>
+          <button class="text-btn" type="button" onclick="loadGitHubProducts()">↻ Refresh from GitHub</button>
+          <div id="adminProductList"></div>
+        </div>
+      </section>
+
+      <section id="adminOrdersTab" class="admin-tab" style="display:none">
+        <div class="admin-card">
+          <h3>Orders via WhatsApp</h3>
+          <p class="modal-note">GitHub Pages is static, so customer orders are sent directly to your WhatsApp instead of being stored in a database.</p>
+          <a class="whatsapp-btn full" target="_blank" rel="noopener" href="https://wa.me/584267084400?text=Hello%20Surprizzy%2C%20I%20want%20to%20manage%20orders.">Open Surprizzy WhatsApp →</a>
+          <p class="upload-help">WhatsApp: +58 426-7084400</p>
+        </div>
+      </section>
+      <button class="logout-btn" onclick="adminLogout()">Logout</button>
+    </aside>
+  </div>
+
+
+  <script src="github-admin.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
