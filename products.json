@@ -8,14 +8,6 @@
     "desc": "Cute teddy with a little surprise box."
   },
   {
-    "id": "4",
-    "name": "Personalized Mug",
-    "cat": "Personalized",
-    "price": 449,
-    "image": "https://raw.githubusercontent.com/zixu30/surprizzy/main/products/1787688291988-1000123202.jpg",
-    "desc": "Add a name and make it truly yours."
-  },
-  {
     "id": "5",
     "name": "Forever Rose Box",
     "cat": "Premium",
