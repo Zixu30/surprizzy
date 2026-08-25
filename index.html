@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprizzy — Make Every Moment Special</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Checkout & Modal Custom Styles */
+    .checkout-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 15px;
+      text-align: left;
+    }
+    .payment-methods {
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .upi-details {
+      background: #f9f9f9;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px dashed #ccc;
+      text-align: center;
+    }
+    .upi-id {
+      color: #e63946;
+      font-size: 1.1rem;
+      margin: 4px 0;
+    }
+    .qr-container img {
+      width: 160px;
+      height: 160px;
+      margin: 8px auto;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+    .text-center {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a class="logo" href="#">Surprizzy<span>🎁</span></a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#categories">Categories</a>
+      <a href="#products">Gifts</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleSearch()" aria-label="Search">⌕</button>
+      <button class="admin-mini" onclick="openAdminLogin()">Admin</button>
+      <button class="cart-btn" onclick="openCart()">🛍️ <span id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <div id="searchBar" class="search-bar">
+    <input id="searchInput" type="search" placeholder="Search gifts..." oninput="renderProducts()">
+  </div>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">GIFTS MADE WITH LOVE</p>
+        <h1>Make every<br><em>moment</em> special.</h1>
+        <p class="hero-text">Thoughtful gifts for birthdays, love, celebrations and all the little moments worth remembering.</p>
+        <a href="#products" class="primary-btn">Shop Gifts <span>→</span></a>
+      </div>
+      <div class="hero-art">
+        <div class="blob"></div>
+        <div class="gift-box">
+          <div class="ribbon-v"></div><div class="ribbon-h"></div>
+          <div class="lid"></div><div class="box"></div>
+          <div class="bow">🎀</div>
+        </div>
+        <div class="spark s1">✦</div><div class="spark s2">✧</div><div class="spark s3">✦</div>
+      </div>
+    </section>
+
+    <section id="categories" class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">FIND YOUR PERFECT GIFT</p><h2>Shop by category</h2></div>
+      </div>
+      <div class="categories">
+        <button onclick="filterCategory('All')">🎁<span>All Gifts</span></button>
+        <button onclick="filterCategory('Birthday')">🎂<span>Birthday</span></button>
+        <button onclick="filterCategory('Love')">💗<span>For Love</span></button>
+        <button onclick="filterCategory('Soft Toys')">🧸<span>Soft Toys</span></button>
+        <button onclick="filterCategory('Personalized')">✨<span>Personalized</span></button>
+        <button onclick="filterCategory('Premium')">💎<span>Premium</span></button>
+      </div>
+    </section>
+
+    <section id="products" class="section products-section">
+      <div class="section-head">
+        <div><p class="eyebrow">OUR COLLECTION</p><h2>Popular gifts</h2></div>
+        <button class="text-btn" onclick="filterCategory('All')">View all →</button>
+      </div>
+      <div id="productsGrid" class="products-grid"></div>
+    </section>
+
+    <section class="offer">
+      <div>
+        <p class="eyebrow">SPECIAL OFFER</p>
+        <h2>Give a little happiness.<br>Get <strong>10% OFF</strong>.</h2>
+        <p>Use code <b>SURPRISE10</b> at checkout.</p>
+      </div>
+      <a href="#products" class="light-btn">Shop the offer →</a>
+    </section>
+
+    <section id="about" class="about section">
+      <div><p class="eyebrow">WHY SURPRIZZY?</p><h2>Small gifts.<br><em>Big feelings.</em></h2></div>
+      <div class="features">
+        <div><span>🎀</span><h3>Beautifully packed</h3><p>Every order is prepared to feel like a real surprise.</p></div>
+        <div><span>💝</span><h3>Made for moments</h3><p>Find something special for birthdays, love and celebrations.</p></div>
+        <div><span>🚚</span><h3>Easy ordering</h3><p>Simple checkout and WhatsApp ordering for your convenience.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="logo">Surprizzy<span>🎁</span></div>
+    <p>Make Every Moment Special ✨</p>
+    <small>© 2026 Surprizzy. All rights reserved.</small>
+  </footer>
+
+  <!-- Cart Overlay -->
+  <div id="cartOverlay" class="overlay" onclick="closeCart(event)">
+    <aside class="cart-panel" onclick="event.stopPropagation()">
+      <div class="cart-head"><h2>Your cart</h2><button onclick="closeCart()">×</button></div>
+      <div id="cartItems"></div>
+      <div class="cart-bottom">
+        <div class="total"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+        <button class="primary-btn full" onclick="openCheckout()">Checkout →</button>
+        <button class="whatsapp-btn full" onclick="whatsappOrder()">Order on WhatsApp</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Checkout Overlay -->
+  <div id="checkoutOverlay" class="overlay" onclick="closeCheckout(event)">
+    <div class="admin-modal" onclick="event.stopPropagation()">
+      <button class="modal-x" onclick="closeCheckout()">×</button>
+      <p class="eyebrow">FINAL STEP</p>
+      <h2>Checkout</h2>
+      
+      <div class="checkout-form">
+        <input id="custName" class="admin-input" type="text" placeholder="Full Name" required>
+        <input id="custPhone" class="admin-input" type="tel" placeholder="Mobile Number" required>
+        <textarea id="custAddress" class="admin-input" placeholder="Delivery Address" rows="3" required></textarea>
+        
+        <div class="payment-methods">
+          <p><strong>Payment Method:</strong></p>
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="UPI" checked onclick="togglePaymentView('UPI')">
+            UPI Payment
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="COD" onclick="togglePaymentView('COD')">
+            Cash on Delivery (COD)
+          </label>
+        </div>
+
+        <div id="upiSection" class="upi-details">
+          <p>Scan & Pay via UPI ID:</p>
+          <p class="upi-id"><strong>9326567293@omni</strong></p>
+          <div class="qr-container">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=9326567293@omni%26pn=Surprizzy" alt="UPI Scanner">
+          </div>
+          <input id="upiTxnId" class="admin-input" type="text" placeholder="Transaction ID / UTR (Optional)">
+        </div>
+
+        <button class="primary-btn full" onclick="processOrder()">Confirm Order →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Overlay -->
+  <div id="confirmationOverlay" class="overlay">
+    <div class="admin-modal text-center">
+      <div style="font-size: 3rem; margin-bottom: 10px;">🎉</div>
+      <h2>Order Confirmed!</h2>
+      <p>Thank you for shopping with Surprizzy.</p>
+      <p class="modal-note" style="margin: 15px 0;">Order ID: <strong id="confOrderId"></strong></p>
+      <p id="confPaymentDetails" style="font-size: 0.9rem; color: #555;"></p>
+      <button class="primary-btn full" style="margin-top: 20px;" onclick="closeConfirmation()">Continue Shopping</button>
+    </div>
+  </div>
+
+  <!-- Admin Login Overlay -->
+  <div id="adminLoginOverlay" class="overlay" onclick="closeAdminLogin(event)">
+    <div class="admin-modal" onclick="event.stopPropagation()">
+      <button class="modal-x" onclick="closeAdminLogin()">×</button>
+      <p class="eyebrow">SECURE ADMIN ACCESS</p>
+      <h2>Admin login</h2>
+      <p class="modal-note">Use your registered admin mobile number and password.</p>
+      <input id="adminNumber" class="admin-input" type="tel" inputmode="numeric" maxlength="10" placeholder="Mobile number">
+      <input id="adminPassword" class="admin-input" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
+      <button class="primary-btn full" onclick="adminLogin()">Login securely →</button>
+      <p id="adminError" class="admin-error"></p>
+    </div>
+  </div>
+
+  <!-- Admin Panel Overlay -->
+  <div id="adminOverlay" class="overlay" onclick="closeAdmin(event)">
+    <aside class="admin-panel" onclick="event.stopPropagation()">
+      <div class="cart-head">
+        <div><p class="eyebrow">SURPRIZZY CONTROL</p><h2>Admin panel</h2></div>
+        <button onclick="closeAdmin()">×</button>
+      </div>
+      <div class="admin-tabs">
+        <button class="active" onclick="showAdminTab('products')">Products</button>
+        <button onclick="showAdminTab('orders')">Orders</button>
+      </div>
+
+      <section id="adminProductsTab" class="admin-tab">
+        <div class="admin-card">
+          <h3>Add product</h3>
+          <div class="admin-form">
+            <input id="pName" placeholder="Product name">
+            <input id="pPrice" type="number" placeholder="Price (₹)">
+            <select id="pCat">
+              <option>Birthday</option><option>Love</option><option>Soft Toys</option>
+              <option>Personalized</option><option>Premium</option>
+            </select>
+            <input id="pEmoji" placeholder="Emoji e.g. 🎁">
+            <input id="pDesc" placeholder="Short description">
+            <button class="primary-btn full" onclick="adminAddProduct()">Add product</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3>Manage products</h3>
+          <div id="adminProductList"></div>
+        </div>
+      </section>
+
+      <section id="adminOrdersTab" class="admin-tab" style="display:none">
+        <div class="admin-card">
+          <h3>Orders</h3>
+          <div id="adminOrderList"></div>
+        </div>
+      </section>
+      <button class="logout-btn" onclick="adminLogout()">Logout</button>
+    </aside>
+  </div>
+
+  <!-- Firebase Configuration & Scripts -->
+  <script>
+    window.SURPRIZZY_FIREBASE_CONFIG = {
+      apiKey: "AIzaSyCNAT82eCmIjhiai-3poxeDHxhbK4VcBXk",
+      authDomain: "surprizzy.firebaseapp.com",
+      projectId: "surprizzy",
+      storageBucket: "surprizzy.firebasestorage.app",
+      messagingSenderId: "309719155505",
+      appId: "1:309719155505:web:850ff459fa5a6fd47c6610",
+      measurementId: "G-Z22FQN4SC8"
+    };
+  </script>
+  <script type="module" src="firebase-admin.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Checkout Logic Script -->
+  <script>
+    function openCheckout() {
+      if (typeof cart !== 'undefined' && cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      closeCart();
+      document.getElementById("checkoutOverlay").classList.add("active");
+    }
+
+    function closeCheckout(event) {
+      if (!event || event.target.id === "checkoutOverlay") {
+        document.getElementById("checkoutOverlay").classList.remove("active");
+      }
+    }
+
+    function togglePaymentView(method) {
+      const upiSection = document.getElementById("upiSection");
+      upiSection.style.display = method === "UPI" ? "block" : "none";
+    }
+
+    function processOrder() {
+      const name = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const address = document.getElementById("custAddress").value.trim();
+      const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+      const txnId = document.getElementById("upiTxnId").value.trim();
+
+      if (!name || !phone || !address) {
+        alert("Please enter your name, mobile number, and address.");
+        return;
+      }
+
+      const orderId = "ORD" + Math.floor(100000 + Math.random() * 900000);
+      
+      document.getElementById("confOrderId").innerText = orderId;
+      document.getElementById("confPaymentDetails").innerText = paymentMethod === "UPI" 
+        ? `Paid via UPI (VPA: 9326567293@omni)` + (txnId ? ` | Txn: ${txnId}` : "")
+        : "Selected Method: Cash on Delivery (COD)";
+
+      closeCheckout();
+      
+      if (typeof cart !== 'undefined') {
+        cart = [];
+        if (typeof updateCartUI === 'function') updateCartUI();
+      }
+
+      document.getElementById("confirmationOverlay").classList.add("active");
+    }
+
+    function closeConfirmation() {
+      document.getElementById("confirmationOverlay").classList.remove("active");
+    }
+  </script>
+</body>
+</html>
