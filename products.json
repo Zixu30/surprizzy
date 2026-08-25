@@ -1,10 +1,58 @@
 [
-  {"id":"1","name":"Teddy Love Box","cat":"Soft Toys","price":799,"image":"","desc":"Cute teddy with a little surprise box."},
-  {"id":"2","name":"Birthday Surprise Hamper","cat":"Birthday","price":999,"image":"","desc":"A cheerful hamper for their special day."},
-  {"id":"3","name":"Love Letter Gift Box","cat":"Love","price":699,"image":"","desc":"A sweet box made for someone special."},
-  {"id":"4","name":"Personalized Mug","cat":"Personalized","price":449,"image":"","desc":"Add a name and make it truly yours."},
-  {"id":"5","name":"Forever Rose Box","cat":"Premium","price":1299,"image":"","desc":"Elegant rose gift for unforgettable moments."},
-  {"id":"6","name":"Cute Gift Hamper","cat":"Birthday","price":849,"image":"","desc":"A colorful collection of little joys."},
-  {"id":"7","name":"Couple Memory Frame","cat":"Love","price":899,"image":"","desc":"Keep your favorite memory forever."},
-  {"id":"8","name":"Surprise Soft Toy","cat":"Soft Toys","price":599,"image":"","desc":"Soft, cuddly and impossible not to love."}
+  {
+    "id": "1",
+    "name": "Teddy Love Box",
+    "cat": "Soft Toys",
+    "price": 799,
+    "image": "",
+    "desc": "Cute teddy with a little surprise box."
+  },
+  {
+    "id": "3",
+    "name": "Love Letter Gift Box",
+    "cat": "Love",
+    "price": 699,
+    "image": "",
+    "desc": "A sweet box made for someone special."
+  },
+  {
+    "id": "4",
+    "name": "Personalized Mug",
+    "cat": "Personalized",
+    "price": 449,
+    "image": "",
+    "desc": "Add a name and make it truly yours."
+  },
+  {
+    "id": "5",
+    "name": "Forever Rose Box",
+    "cat": "Premium",
+    "price": 1299,
+    "image": "",
+    "desc": "Elegant rose gift for unforgettable moments."
+  },
+  {
+    "id": "6",
+    "name": "Cute Gift Hamper",
+    "cat": "Birthday",
+    "price": 849,
+    "image": "",
+    "desc": "A colorful collection of little joys."
+  },
+  {
+    "id": "7",
+    "name": "Couple Memory Frame",
+    "cat": "Love",
+    "price": 899,
+    "image": "",
+    "desc": "Keep your favorite memory forever."
+  },
+  {
+    "id": "8",
+    "name": "Surprise Soft Toy",
+    "cat": "Soft Toys",
+    "price": 599,
+    "image": "",
+    "desc": "Soft, cuddly and impossible not to love."
+  }
 ]
