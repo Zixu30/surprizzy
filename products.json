@@ -46,13 +46,5 @@
     "price": 599,
     "image": "",
     "desc": "Soft, cuddly and impossible not to love."
-  },
-  {
-    "id": "9",
-    "name": "Teddy Love Box",
-    "cat": "Soft Toys",
-    "price": 250,
-    "image": "products/1787685753614-1000123067.jpg",
-    "desc": "Cute teddy with a little surprise box."
   }
 ]
