@@ -6,5 +6,13 @@
     "price": 300,
     "image": "https://raw.githubusercontent.com/zixu30/surprizzy/main/products/1787685753614-1000123067.jpg",
     "desc": "Cute teddy with a little surprise box."
+  },
+  {
+    "id": "1787754815326",
+    "name": "Tekcool Decorative 24K Golden Artificial Rose",
+    "price": 300,
+    "cat": "Love",
+    "desc": "An artificial Rose for your close one 💕",
+    "image": "https://raw.githubusercontent.com/zixu30/surprizzy/main/products/1787754812837-1000123489.jpg"
   }
 ]
